@@ -1,25 +1,28 @@
 package com.zhengsr.jetpackdemo.entity.room
 
 import androidx.room.*
-import com.zhengsr.jetpackdemo.entity.User
 
 @Dao
 interface UserDao {
-    @Insert
-    fun insertUser(user:User) : Long
+
+
+
+    @Query("SELECT * FROM userdata")
+    fun getAll(): List<UserData>
 
     @Update
-    fun updateUser(user: User)
+    fun updateUser(user: UserData)
+
+    @Query("SELECT * FROM userdata WHERE first_name LIKE :first AND " +
+            "last_name LIKE :last LIMIT 1")
+    fun findByName(first: String, last: String): UserData
+
+    @Insert
+    fun insertAll(vararg users: UserData)
 
     @Delete
-    fun  deleteUser(user: User)
+    fun delete(user: UserData)
 
-    @Query("delete from User where lastName = :lastName")
+    @Query("delete from UserData where last_name = :lastName")
     fun deleteByLastName(lastName:String) :Int
-
-    @Query("select * from User")
-    fun loadAllUsers():List<User>
-
-    @Query("select * from User where age > :age")
-    fun loadUserOlderThanAge(age:Int) : User
 }
