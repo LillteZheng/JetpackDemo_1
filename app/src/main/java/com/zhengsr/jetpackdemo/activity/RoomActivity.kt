@@ -28,7 +28,7 @@ class RoomActivity : AppCompatActivity() {
         addDataBtn.setOnClickListener{
             thread {
                 userDao.insertAll(user1,user2)
-                 bookDao.insertBook(Book("android",100))
+                 bookDao.insertBook(Book("android",100,"zsr"))
             }
         }
         //更新数据
